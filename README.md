@@ -18,6 +18,10 @@
 - MAX_BED_SIZE 변경
 - Z_CLEARANCE_PROBE 변경
 - MULTI AUTO LEVELING 제거
+- FAN_SOFT_PWM 활성화
+- SOFT_PWM_SCALE 변경
+- MANUAL_MOVEMENT_FEEDRATE 수정
+- 시작할 때 및 전체적인 사운드 음소거
 
 
 ## License
