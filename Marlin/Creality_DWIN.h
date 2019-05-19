@@ -24,65 +24,65 @@
 #define	VarAddr_W	0x82		
 #define	VarAddr_R	0x83
 #define	ExchangePageBase	(unsigned long)0x5A010000	//the first page ID. other page = first page ID + relevant num;
-#define	StartSoundSet	((unsigned long)0x060480A0)		// 06,start-music; 04, 4 musics; 80, the volume value; 04, return value about music number.
+#define	StartSoundSet	((unsigned long)0x060080A0)		// 06,start-music; 04,  the volume value; 00, musics; 80, return value about music number.
 #define	FONT_EEPROM	90
 #define	AutoLeve_EEPROM	100
 #define	FanOn	255
-#define 	FanOff	0
+#define FanOff	0
 
 /*variable addr*/
-#define	ExchangepageAddr	0x0084
-#define	SoundAddr			0x00A0
-#define	StartIcon			0x1000
-#define	FeedrateDisplay		0x1006
-#define	Stopprint			0x1008
-#define	Pauseprint			0x100A
-#define	Resumeprint			0x100C
-#define	PrintscheduleIcon		0x100E
-#define	Timehour			0x1010
-#define	Timemin				0x1012
-#define	IconPrintstatus		0x1014
-#define	Percentage			0x1016
-#define	FanKeyIcon			0x101E
+#define	ExchangepageAddr  0x0084
+#define	SoundAddr			    0x00A0
+#define	StartIcon			    0x1000
+#define	FeedrateDisplay	  0x1006
+#define	Stopprint			    0x1008
+#define	Pauseprint			  0x100A
+#define	Resumeprint			  0x100C
+#define	PrintscheduleIcon	0x100E
+#define	Timehour			    0x1010
+#define	Timemin				    0x1012
+#define	IconPrintstatus	  0x1014
+#define	Percentage			  0x1016
+#define	FanKeyIcon			  0x101E
 
-#define	HeatPercentIcon		0x1024
+#define	HeatPercentIcon	  0x1024
 
-#define	NzBdSet				0x1032
-#define	NozzlePreheat		0x1034
-#define	NozzleTemp			0x1036
-#define	BedPreheat			0x103A
-#define	Bedtemp				0x103C
+#define	NzBdSet				    0x1032
+#define	NozzlePreheat		  0x1034
+#define	NozzleTemp			  0x1036
+#define	BedPreheat			  0x103A
+#define	Bedtemp				    0x103C
 
-#define	AutoZeroIcon		0x1042
-#define	AutoLevelIcon		0x1045
-#define	AutoZero			0x1046
-#define	DisplayXaxis			0x1048
-#define	DisplayYaxis			0x104A
-#define	DisplayZaxis			0x104C
+#define	AutoZeroIcon		  0x1042
+#define	AutoLevelIcon		  0x1045
+#define	AutoZero			    0x1046
+#define	DisplayXaxis		  0x1048
+#define	DisplayYaxis		  0x104A
+#define	DisplayZaxis		  0x104C
 
-#define	FilementUnit1		0x1054
-#define	Exchfilement			0x1056
-#define	FilementUnit2		0x1058
+#define	FilementUnit1		  0x1054
+#define	Exchfilement		  0x1056
+#define	FilementUnit2		  0x1058
 
-#define	MacVersion			0x1060
-#define	SoftVersion			0x106A
-#define	PrinterSize			0x1074
-#define	CorpWebsite			0x107E
-#define	VolumeIcon			0x108A
-#define	SoundIcon			0x108C
-#define	AutolevelIcon		0x108D
-#define	ExchFlmntIcon		0x108E
-#define	AutolevelVal			0x1100
+#define	MacVersion			  0x1060
+#define	SoftVersion			  0x106A
+#define	PrinterSize			  0x1074
+#define	CorpWebsite			  0x107E
+#define	VolumeIcon			  0x108A
+#define	SoundIcon			    0x108C
+#define	AutolevelIcon		  0x108D
+#define	ExchFlmntIcon		  0x108E
+#define	AutolevelVal		  0x1100
 
-#define	FilenameIcon			0x1200
-#define	FilenameIcon1		0x1220
-#define	Printfilename			0x2000
-#define	SDFILE_ADDR		0x200A
-#define	FilenamePlay			0x20D2
-#define	FilenameChs			0x20D3
-#define	Choosefilename		0x20D4
-#define	FilenameCount		0x20DE
-#define	FilenameNature		0x6003
+#define	FilenameIcon		  0x1200
+#define	FilenameIcon1		  0x1220
+#define	Printfilename		  0x2000
+#define	SDFILE_ADDR		    0x200A
+#define	FilenamePlay		  0x20D2
+#define	FilenameChs			  0x20D3
+#define	Choosefilename	  0x20D4
+#define	FilenameCount		  0x20DE
+#define	FilenameNature	  0x6003
 /************struct**************/
 
 typedef struct DataBuf
