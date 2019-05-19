@@ -71,7 +71,7 @@ bool AutohomeKey = false;
 unsigned char AutoHomeIconNum;
 RTSSHOW rtscheck;
 int Update_Time_Value = 0;
-unsigned long VolumeSet = 0x80;
+unsigned long VolumeSet = 0;
 extern char power_off_commands[9][96];
 bool PoweroffContinue = false;
 extern const char *injected_commands_P;
@@ -304,7 +304,7 @@ void RTSSHOW::RTS_Init()
 	
 	//VolumeSet = eeprom_read_byte((unsigned char*)FONT_EEPROM+4);
 	//if(VolumeSet < 0 || VolumeSet > 0xFF)
-		VolumeSet = 0x20;
+		VolumeSet = 0;
 		
 	if(PrintMode)RTS_SndData(3, FanKeyIcon+1);	// saving mode
 	else RTS_SndData(2, FanKeyIcon+1);	// normal
