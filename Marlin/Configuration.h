@@ -104,7 +104,7 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_13_EEB
+  #define MOTHERBOARD BOARD_RAMPS_14_EFB
 #endif
 
 #define CUSTOM_MACHINE_NAME "CR-10S Pro"
@@ -436,56 +436,12 @@
    or (with LCD_BED_LEVELING) the LCD controller.
 */
 
-#if (DISABLED(ABL_EZABL) &&DISABLED(ABL_NCSW) &&  DISABLED(ABL_BLTOUCH) )
-#define PROBE_MANUALLY
-#define MANUAL_PROBE_START_Z 0.2
-#endif
-
 /**
    A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
      (e.g., an inductive probe or a nozzle-based probe-switch.)
 */
 
 #define FIX_MOUNTED_PROBE
-
-/**
-
-   Enable one or more of the following if probing seems unreliable.
-   Heaters and/or fans can be disabled during probing to minimize electrical
-   noise. A delay can also be added to allow noise and vibration to settle.
-   These options are most useful for the BLTouch probe, but may also improve
-   readings with inductive probes and piezo sensors.
-*/
-#if ((ENABLED(ABL_EZABL) || ENABLED(ABL_NCSW)) && ENABLED(BED_AC))
-  #define PROBING_HEATERS_OFF       // Turn heaters off when probing
-#endif
-
-#if ENABLED(PROBING_HEATERS_OFF)
-  #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
-#endif
-//#define PROBING_FANS_OFF          // Turn fans off when probing
-
-//#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
-
-// A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
-#if ENABLED(ABL_BLTOUCH)
-  #define PROBING_FANS_OFF          // Turn fans off when probing
-#if(ENABLED(MachineCR10Orig))
-  #define SOLENOID_PROBE PIN_27
-  #define SERVO0_PIN 27
-#elif(ENABLED(MachineEnder4))
-  #define SOLENOID_PROBE PIN_15
-#else
-  #define SOLENOID_PROBE PIN_11
-#endif
-#endif
-// A sled-mounted probe like those designed by Charles Bell.
-//#define Z_PROBE_SLED
-//#define SLED_DOCKING_OFFSET 5  // The extra distance the X axis must travel to pickup the sled. 0 should be fine but you can push it further if you'd like.
-
-//
-// For Z_PROBE_ALLEN_KEY see the Delta example configurations.
-//
 
 /**
      Z Probe to nozzle (X,Y) offset, relative to (0, 0).
@@ -854,7 +810,7 @@ GRID_MAX_POINTS_X 3
 
 #endif
 
-#elif ENABLED(AUTO_BED_LEVELING_3POINT)
+#elif ENABLED(AUTO_BED_LEVELING_3POINT
 
 // 3 arbitrary points to probe.
 // A simple cross-product is used to estimate the plane of the bed.
@@ -972,19 +928,6 @@ GRID_MAX_POINTS_X 3
 
 #endif // BED_LEVELING
 
-/**
-   Use the LCD controller for bed leveling
-   Requires MESH_BED_LEVELING or PROBE_MANUALLY
-*/
-#if (!ENABLED(ABL_EZABL)&& !ENABLED(ABL_BLTOUCH) &&!ENABLED(OrigLA) && DISABLED(ABL_NCSW) && DISABLED(CREALITY_DWIN))
-#define LCD_BED_LEVELING
-#endif
-
-#if ENABLED(LCD_BED_LEVELING)
-#define MBL_Z_STEP 0.025    // Step size while manually probing Z axis.
-#define LCD_PROBE_Z_RANGE 8 // Z Range centered on Z_MIN_POS for LCD Z adjustment
-#endif
-
 // Add a menu item to move between bed corners for manual bed adjustment
 #define LEVEL_BED_CORNERS
 
@@ -1082,8 +1025,8 @@ GRID_MAX_POINTS_X 3
 #define PREHEAT_1_TEMP_BED      0
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    110
+#define PREHEAT_2_TEMP_HOTEND 220
+#define PREHEAT_2_TEMP_BED     60
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -1100,12 +1043,7 @@ GRID_MAX_POINTS_X 3
 #define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
-// Specify a park position as { X, Y, Z }
-#if(ENABLED(MachineEnder2))
-#define NOZZLE_PARK_POINT { (0), (0), 20 }
-#else
 #define NOZZLE_PARK_POINT { (20), (20), 20 }
-#endif
 #define NOZZLE_PARK_XY_FEEDRATE 100   // X and Y axes feedrate in mm/s (also used for delta printers Z axis)
 #define NOZZLE_PARK_Z_FEEDRATE 5      // Z axis feedrate in mm/s (not used for delta printers)
 #endif
@@ -1125,8 +1063,8 @@ GRID_MAX_POINTS_X 3
      M76 - Pause the print job timer
      M77 - Stop the print job timer
 */
- #if DISABLED(MachineCR10Orig)
- #define PRINTJOB_TIMER_AUTOSTART
+#if DISABLED(MachineCR10Orig)
+#define PRINTJOB_TIMER_AUTOSTART
 #endif
 
 /**
@@ -1141,8 +1079,8 @@ GRID_MAX_POINTS_X 3
 
    View the current statistics with M78.
 */
- #if(DISABLED(MachineCR10Orig))
- #define PRINTCOUNTER
+#if(DISABLED(MachineCR10Orig))
+#define PRINTCOUNTER
 #endif
 //=============================================================================
 //============================= LCD and SD support ============================
@@ -1210,6 +1148,8 @@ GRID_MAX_POINTS_X 3
 
 #define SDSUPPORT
 
+//#define POWEROFF_SAVE_SD_FILE
+
 /**
    SD CARD: SPI SPEED
 
@@ -1271,9 +1211,11 @@ GRID_MAX_POINTS_X 3
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
+
 #if(DISABLED(MachineCR10Orig))
 #define INDIVIDUAL_AXIS_HOMING_MENU
 #endif
+
 //
 // SPEAKER/BUZZER
 //
@@ -1283,265 +1225,6 @@ GRID_MAX_POINTS_X 3
 #if(DISABLED(MachineCR10Orig))
 #define SPEAKER
 #endif
-
-//
-// The duration and frequency for the UI feedback sound.
-// Set these to 0 to disable audio feedback in the LCD menus.
-//
-// Note: Test audio output with the G-Code:
-//  M300 S<frequency Hz> P<duration ms>
-//
-//#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
-//#define LCD_FEEDBACK_FREQUENCY_HZ 5000
-
-//
-// CONTROLLER TYPE: Standard
-//
-// Marlin supports a wide variety of controllers.
-// Enable one of the following options to specify your controller.
-//
-
-//
-// ULTIMAKER Controller.
-//
-//#define ULTIMAKERCONTROLLER
-
-//
-// ULTIPANEL as seen on Thingiverse.
-//
-//#define ULTIPANEL
-
-//
-// PanelOne from T3P3 (via RAMPS 1.4 AUX2/AUX3)
-// http://reprap.org/wiki/PanelOne
-//
-//#define PANEL_ONE
-
-//
-// MaKr3d Makr-Panel with graphic controller and SD support.
-// http://reprap.org/wiki/MaKr3d_MaKrPanel
-//
-//#define MAKRPANEL
-
-//
-// ReprapWorld Graphical LCD
-// https://reprapworld.com/?products_details&products_id/1218
-//
-//#define REPRAPWORLD_GRAPHICAL_LCD
-
-//
-// Activate one of these if you have a Panucatt Devices
-// Viki 2.0 or mini Viki with Graphic LCD
-// http://panucatt.com
-//
-//#define VIKI2
-//#define miniVIKI
-
-//
-// Adafruit ST7565 Full Graphic Controller.
-// https://github.com/eboston/Adafruit-ST7565-Full-Graphic-Controller/
-//
-//#define ELB_FULL_GRAPHIC_CONTROLLER
-
-//
-// RepRapDiscount Smart Controller.
-// http://reprap.org/wiki/RepRapDiscount_Smart_Controller
-//
-// Note: Usually sold with a white PCB.
-//
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
-
-//
-// GADGETS3D G3D LCD/SD Controller
-// http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
-//
-// Note: Usually sold with a blue PCB.
-//
-//#define G3D_PANEL
-
-//
-// RepRapDiscount FULL GRAPHIC Smart Controller
-// http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
-//
-#if(ENABLED(MachineEnder4) && DISABLED(GraphicLCD))
-#define REPRAP_DISCOUNT_SMART_CONTROLLER
-#elif(ENABLED(MachineEnder2) )
-#define MINIPANEL
-#elif ENABLED(MachineCR20)
-  #define MKS_MINI_12864
-#elif(DISABLED(OrigLCD) && DISABLED(CREALITY_DWIN))
-#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-#endif
-#if(ENABLED(OrigLCD))
-#define CR10_STOCKDISPLAY
-#endif
-//
-// MakerLab Mini Panel with graphic
-// controller and SD support - http://reprap.org/wiki/Mini_panel
-//
-//#define MINIPANEL
-
-//
-// RepRapWorld REPRAPWORLD_KEYPAD v1.1
-// http://reprapworld.com/?products_details&products_id=202&cPath=1591_1626
-//
-// REPRAPWORLD_KEYPAD_MOVE_STEP sets how much should the robot move when a key
-// is pressed, a value of 10.0 means 10mm per click.
-//
-//#define REPRAPWORLD_KEYPAD
-//#define REPRAPWORLD_KEYPAD_MOVE_STEP 1.0
-
-//
-// RigidBot Panel V1.0
-// http://www.inventapart.com/
-//
-//#define RIGIDBOT_PANEL
-
-//
-// BQ LCD Smart Controller shipped by
-// default with the BQ Hephestos 2 and Witbox 2.
-//
-//#define BQ_LCD_SMART_CONTROLLER
-
-//
-// Cartesio UI
-// http://mauk.cc/webshop/cartesio-shop/electronics/user-interface
-//
-//#define CARTESIO_UI
-
-//
-// ANET and Tronxy Controller supported displays.
-//
-//#define ZONESTAR_LCD            // Requires ADC_KEYPAD_PIN to be assigned to an analog pin.
-// This LCD is known to be susceptible to electrical interference
-// which scrambles the display.  Pressing any button clears it up.
-// This is a LCD2004 display with 5 analog buttons.
-
-//#define ANET_FULL_GRAPHICS_LCD  // Anet 128x64 full graphics lcd with rotary encoder as used on Anet A6
-// A clone of the RepRapDiscount full graphics display but with
-// different pins/wiring (see pins_ANET_10.h).
-
-//
-// LCD for Melzi Card with Graphical LCD
-//
-//#define LCD_FOR_MELZI
-
-//
-// LCD for Malyan M200 printers.
-// This requires SDSUPPORT to be enabled
-//
-//#define MALYAN_LCD
-
-//
-// CONTROLLER TYPE: I2C
-//
-// Note: These controllers require the installation of Arduino's LiquidCrystal_I2C
-// library. For more info: https://github.com/kiyoshigawa/LiquidCrystal_I2C
-//
-
-//
-// Elefu RA Board Control Panel
-// http://www.elefu.com/index.php?route=product/product&product_id=53
-//
-//#define RA_CONTROL_PANEL
-
-//
-// Sainsmart (YwRobot) LCD Displays
-//
-// These require F.Malpartida's LiquidCrystal_I2C library
-// https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/Home
-//
-//#define LCD_SAINSMART_I2C_1602
-//#define LCD_SAINSMART_I2C_2004
-
-//
-// Generic LCM1602 LCD adapter
-//
-//#define LCM1602
-
-//
-// PANELOLU2 LCD with status LEDs,
-// separate encoder and click inputs.
-//
-// Note: This controller requires Arduino's LiquidTWI2 library v1.2.3 or later.
-// For more info: https://github.com/lincomatic/LiquidTWI2
-//
-// Note: The PANELOLU2 encoder click input can either be directly connected to
-// a pin (if BTN_ENC defined to != -1) or read through I2C (when BTN_ENC == -1).
-//
-//#define LCD_I2C_PANELOLU2
-
-//
-// Panucatt VIKI LCD with status LEDs,
-// integrated click & L/R/U/D buttons, separate encoder inputs.
-//
-//#define LCD_I2C_VIKI
-
-//
-// SSD1306 OLED full graphics generic display
-//
-//#define U8GLIB_SSD1306
-
-//
-// SAV OLEd LCD module support using either SSD1306 or SH1106 based LCD modules
-//
-//#define SAV_3DGLCD
-#if ENABLED(SAV_3DGLCD)
-//#define U8GLIB_SSD1306
-#define U8GLIB_SH1106
-#endif
-
-//
-// Original Ulticontroller from Ultimaker 2 printer with SSD1309 I2C display and encoder
-// https://github.com/Ultimaker/Ultimaker2/tree/master/1249_Ulticontroller_Board_(x1)
-//
-//#define ULTI_CONTROLLER
-
-//
-// CONTROLLER TYPE: Shift register panels
-//
-// 2 wire Non-latching LCD SR from https://goo.gl/aJJ4sH
-// LCD configuration: http://reprap.org/wiki/SAV_3D_LCD
-//
-//#define SAV_3DLCD
-
-//
-// TinyBoy2 128x64 OLED / Encoder Panel
-//
-//#define OLED_PANEL_TINYBOY2
-
-//
-// Makeboard 3D Printer Parts 3D Printer Mini Display 1602 Mini Controller
-// https://www.aliexpress.com/item/Micromake-Makeboard-3D-Printer-Parts-3D-Printer-Mini-Display-1602-Mini-Controller-Compatible-with-Ramps-1/32765887917.html
-//
-//#define MAKEBOARD_MINI_2_LINE_DISPLAY_1602
-
-//
-// MKS MINI12864 with graphic controller and SD support
-// http://reprap.org/wiki/MKS_MINI_12864
-//
-//#define MKS_MINI_12864
-
-//
-// Factory display for Creality CR-10
-// https://www.aliexpress.com/item/Universal-LCD-12864-3D-Printer-Display-Screen-With-Encoder-For-CR-10-CR-7-Model/32833148327.html
-//
-
-//
-// MKS OLED 1.3" 128 × 64 FULL GRAPHICS CONTROLLER
-// http://reprap.org/wiki/MKS_12864OLED
-//
-// Tiny, but very sharp OLED display
-//
-//#define MKS_12864OLED          // Uses the SH1106 controller (default)
-//#define MKS_12864OLED_SSD1306  // Uses the SSD1306 controller
-
-//
-// Silvergate GLCD controller
-// http://github.com/android444/Silvergate
-//
-//#define SILVER_GATE_GLCD_CONTROLLER
-
 //=============================================================================
 //=============================== Extra Features ==============================
 //=============================================================================
@@ -1554,103 +1237,19 @@ GRID_MAX_POINTS_X 3
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-//#define FAN_SOFT_PWM
+#define FAN_SOFT_PWM
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
-#define SOFT_PWM_SCALE 0
+#define SOFT_PWM_SCALE 1
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,
 // some of the PWM cycles are stretched so on average the desired
 // duty cycle is attained.
 //#define SOFT_PWM_DITHER
-
-// Temperature status LEDs that display the hotend and bed temperature.
-// If all hotends, bed temperature, and target temperature are under 54C
-// then the BLUE led is on. Otherwise the RED led is on. (1C hysteresis)
-//#define TEMP_STAT_LEDS
-
-// M240  Triggers a camera by emulating a Canon RC-1 Remote
-// Data from: http://www.doc-diy.net/photo/rc-1_hacked/
-//#define PHOTOGRAPH_PIN     23
-
-// SkeinForge sends the wrong arc g-codes when using Arc Point as fillet procedure
-//#define SF_ARC_FIX
-
-// Support for the BariCUDA Paste Extruder
-//#define BARICUDA
-
-// Support for BlinkM/CyzRgb
-//#define BLINKM
-
-// Support for PCA9632 PWM LED driver
-//#define PCA9632
-
-/**
-   RGB LED / LED Strip Control
-
-   Enable support for an RGB LED connected to 5V digital pins, or
-   an RGB Strip connected to MOSFETs controlled by digital pins.
-
-   Adds the M150 command to set the LED (or LED strip) color.
-   If pins are PWM capable (e.g., 4, 5, 6, 11) then a range of
-   luminance values can be set from 0 to 255.
-   For Neopixel LED an overall brightness parameter is also available.
-
- * *** CAUTION ***
-    LED Strips require a MOFSET Chip between PWM lines and LEDs,
-    as the Arduino cannot handle the current the LEDs will require.
-    Failure to follow this precaution can destroy your Arduino!
-    NOTE: A separate 5V power supply is required! The Neopixel LED needs
-    more current than the Arduino 5V linear regulator can produce.
- * *** CAUTION ***
-
-   LED Type. Enable only one of the following two options.
-
-*/
-//#define RGB_LED
-//#define RGBW_LED
-
-#if ENABLED(RGB_LED) || ENABLED(RGBW_LED)
-#define RGB_LED_R_PIN 34
-#define RGB_LED_G_PIN 43
-#define RGB_LED_B_PIN 35
-#define RGB_LED_W_PIN -1
-#endif
-
-// Support for Adafruit Neopixel LED driver
-//#define NEOPIXEL_LED
-#if ENABLED(NEOPIXEL_LED)
-#define NEOPIXEL_TYPE   NEO_GRBW // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-#define NEOPIXEL_PIN    4        // LED driving pin on motherboard 4 => D4 (EXP2-5 on Printrboard) / 30 => PC7 (EXP3-13 on Rumba)
-#define NEOPIXEL_PIXELS 30       // Number of LEDs in the strip
-#define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
-#define NEOPIXEL_BRIGHTNESS 127  // Initial brightness (0-255)
-//#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
-#endif
-
-/**
-   Printer Event LEDs
-
-   During printing, the LEDs will reflect the printer status:
-
-    - Gradually change from blue to violet as the heated bed gets to target temp
-    - Gradually change from violet to red as the hotend gets to temperature
-    - Change to white to illuminate work surface
-    - Change to green once print has finished
-    - Turn off after the print has finished and the user has pushed a button
-*/
-#if ENABLED(BLINKM) || ENABLED(RGB_LED) || ENABLED(RGBW_LED) || ENABLED(PCA9632) || ENABLED(NEOPIXEL_LED)
-#define PRINTER_EVENT_LEDS
-#endif
-
-/**
-   R/C SERVO support
-   Sponsored by TrinityLabs, Reworked by codexmas
-*/
 
 /**
    Number of servos
