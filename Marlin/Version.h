@@ -35,7 +35,7 @@
   /**
    * Marlin release version identifier
    */
-  #define SHORT_BUILD_VERSION "1.1.9_B6"
+  #define SHORT_BUILD_VERSION "1.1.9_SH"
 
   /**
    * Verbose version identifier which should contain a reference to the location
@@ -50,7 +50,7 @@
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "2019-03-20"
+  #define STRING_DISTRIBUTION_DATE "2019-05-19"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
@@ -72,7 +72,7 @@
   /**
    * Defines a generic printer name to be output to the LCD after booting Marlin.
    */
-  #define MACHINE_NAME "TM3DCR10"
+  #define MACHINE_NAME "CR-10S Pro"
 
   /**
    * The SOURCE_CODE_URL is the location where users will find the Marlin Source
@@ -80,7 +80,7 @@
    * has a distinct Github fork— the Source Code URL should just be the main
    * Marlin repository.
    */
-  #define SOURCE_CODE_URL "https://github.com/InsanityAutomation/Marlin/"
+  #define SOURCE_CODE_URL "https://github.com/sihyeon/Marlin-CR10SPRO/"
 
   /**
    * Default generic printer UUID.
@@ -91,6 +91,6 @@
    * The WEBSITE_URL is the location where users can get more information such as
    * documentation about a specific Marlin release.
    */
-  #define WEBSITE_URL "tinymachines3d.com"
+  #define WEBSITE_URL "www.github.com/sihyeonlee"
 
 #endif // USE_AUTOMATIC_VERSIONING
